@@ -4,6 +4,17 @@ MindBridgeAI is an intelligent mental health assistant powered by the Gemini API
 
 ---
 
+## 📚 Table of Contents
+
+- [Project Structure](#-project-structure)
+- [Features](#-features)
+- [Installation](#-installation)
+- [Chat Interface](#-chat-interface)
+- [How It Works](#-how-it-works)
+- [Technologies Used](#technologies-used)
+
+---
+
 ## 📁 Project Structure
 
 ```bash
@@ -35,17 +46,6 @@ mindbridgeai/
 ├── requirements.txt
 └── README.md
 ```
-
----
-
-## 📚 Table of Contents
-
-- [Project Structure](#-project-structure)
-- [Features](#-features)
-- [Installation](#-installation)
-- [Chat Interface](#-chat-interface)
-- [How It Works](#-how-it-works)
-- [Technologies Used](#technologies-used)
 
 ---
 
