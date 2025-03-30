@@ -40,16 +40,12 @@ mindbridgeai/
 
 ## 📚 Table of Contents
 
-- [Features](#features)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Project Structure](#project-structure)
-- [Configuration](#configuration)
-- [Core Modules](#core-modules)
-- [Example](#example)
-- [Troubleshooting](#troubleshooting)
-- [Contributors](#contributors)
-- [License](#license)
+- [Project Structure](#-project-structure)
+- [Features](#-features)
+- [Installation](#-installation)
+- [Chat Interface](#-chat-interface)
+- [How It Works](#-how-it-works)
+- [Technologies Used](#technologies-used)
 
 ---
 
