@@ -1,150 +1,293 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MindBridgeAI - Therapist Chatbot</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f6f9;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            flex-direction: column;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MindBridgeAI - Therapist Chatbot</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #121212;
+      color: white;
+      display: flex;
+      height: 100vh;
+    }
 
-        .container {
-            width: 50%;
-            background: white;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-            border-radius: 12px;
-            overflow: hidden;
-        }
+    .sidebar {
+      width: 260px;
+      background-color: #1e1e1e;
+      padding: 20px;
+      overflow-y: auto;
+      border-right: 1px solid #333;
+      display: flex;
+      flex-direction: column;
+    }
 
-        .header {
-            background-color: #4a90e2;
-            padding: 15px;
-            text-align: center;
-            color: white;
-            font-size: 22px;
-            font-weight: bold;
-        }
+    .sidebar h2 {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
 
-        .chatbox {
-            padding: 15px;
-            height: 400px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
+    .top-btn {
+      background: #00c853;
+      color: white;
+      border: none;
+      padding: 10px 14px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      cursor: pointer;
+    }
 
-        .message {
-            padding: 10px 15px;
-            border-radius: 10px;
-            max-width: 75%;
-            word-wrap: break-word;
-        }
+    .top-btn:hover {
+      background: #00e676;
+    }
 
-        .bot {
-            background: #e3f2fd;
-            align-self: flex-start;
-        }
+    .session-item {
+      background: #2e2e2e;
+      padding: 12px 14px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      font-size: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      transition: background 0.2s ease-in-out;
+    }
 
-        .user {
-            background: #c8e6c9;
-            align-self: flex-end;
-            font-weight: bold;
-        }
+    .session-item:hover {
+      background: #444;
+    }
 
-        .input-area {
-            display: flex;
-            padding: 15px;
-            background: #f1f1f1;
-        }
+    .session-item button {
+      background: transparent;
+      border: none;
+      color: #aaa;
+      font-size: 14px;
+      cursor: pointer;
+    }
 
-        input {
-            flex: 1;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
-        }
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
 
-        button {
-            margin-left: 10px;
-            background-color: #4a90e2;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            cursor: pointer;
-            border-radius: 5px;
-            font-size: 16px;
-        }
+    .header {
+      background: linear-gradient(90deg, #0f9d58, #00c853);
+      padding: 18px;
+      font-size: 20px;
+      font-weight: bold;
+      text-align: center;
+    }
 
-        button:hover {
-            background-color: #357ABD;
-        }
-    </style>
+    .chatbox {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .message {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 16px;
+    }
+
+    .bot {
+      align-self: flex-start;
+    }
+
+    .user {
+      align-self: flex-end;
+      flex-direction: row-reverse;
+    }
+
+    .avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .text {
+      background: #2c2c2c;
+      padding: 14px 18px;
+      border-radius: 14px;
+      max-width: 75%;
+      line-height: 1.5;
+    }
+
+    .user .text {
+      background: #2962ff;
+      color: white;
+    }
+
+    .input-area {
+      display: flex;
+      padding: 14px;
+      border-top: 1px solid #333;
+      background-color: #1e1e1e;
+    }
+
+    input {
+      flex: 1;
+      padding: 12px 16px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      background: #2a2a2a;
+      color: white;
+    }
+
+    button {
+      margin-left: 10px;
+      background-color: #00c853;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #00e676;
+    }
+  </style>
 </head>
 <body>
-
-    <div class="container">
-        <div class="header">MindBridgeAI - Providing mental health support</div>
-        <div class="chatbox" id="chatbox">
-            <div class="message bot"><b>Bot:</b> Hello! How can I assist you today?</div>
-        </div>
-        <div class="input-area">
-            <input type="text" id="user-input" placeholder="Type your message...">
-            <button onclick="sendMessage()">Send</button>
-        </div>
+  <div class="sidebar">
+    <button class="top-btn" onclick="startNewChat()">+ New Chat</button>
+    <h2>Previous Sessions</h2>
+    <div id="sessions"></div>
+  </div>
+  <div class="main">
+    <div class="header">MindBridgeAI - Providing mental health support</div>
+    <div class="chatbox" id="chatbox"></div>
+    <div class="input-area">
+      <input type="text" id="user-input" placeholder="Type your message...">
+      <button onclick="sendMessage()">Send</button>
     </div>
+  </div>
 
-    <script>
-        function sendMessage() {
-            let userInput = document.getElementById("user-input").value;
-            if (!userInput) return;
+  <script>
+    let currentSessionKey = "";
 
-            // Append user message
-            let chatbox = document.getElementById("chatbox");
-            let userMessage = document.createElement("div");
-            userMessage.classList.add("message", "user");
-            userMessage.innerHTML = "<b>You:</b> " + userInput;
-            chatbox.appendChild(userMessage);
+    function startNewChat() {
+      currentSessionKey = `session_${Date.now()}`;
+      const sessions = JSON.parse(localStorage.getItem("chat_sessions") || "{}");
+      sessions[currentSessionKey] = [];
+      localStorage.setItem("chat_sessions", JSON.stringify(sessions));
+      renderSessions();
+      renderChat([]);
+    }
 
-            // Scroll to bottom
-            chatbox.scrollTop = chatbox.scrollHeight;
+    function renderChat(messages) {
+      const chatbox = document.getElementById("chatbox");
+      chatbox.innerHTML = "";
+      messages.forEach(msg => appendMessage(msg.role, msg.text));
+    }
 
-            // Clear input
-            document.getElementById("user-input").value = "";
+    function appendMessage(role, text) {
+      const chatbox = document.getElementById("chatbox");
+      const msgDiv = document.createElement("div");
+      msgDiv.classList.add("message", role);
+      msgDiv.innerHTML = `
+        <img src="static/mindbridge_logo.png" class="avatar" />
+        <div class="text"><b>${role === 'bot' ? 'MindBridgeAI' : 'You'}:</b> ${text}</div>
+      `;
+      chatbox.appendChild(msgDiv);
+      chatbox.scrollTop = chatbox.scrollHeight;
+    }
 
-            // Send user input to Flask backend
-            fetch("/chat", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ message: userInput })
-            })
-            .then(response => response.json())
-            .then(data => {
-                let botMessage = document.createElement("div");
-                botMessage.classList.add("message", "bot");
-                botMessage.innerHTML = "<b>Bot:</b> " + data.reply;
-                chatbox.appendChild(botMessage);
-                chatbox.scrollTop = chatbox.scrollHeight;  // Auto-scroll
-            });
-        }
+    function saveMessage(role, text) {
+      const sessions = JSON.parse(localStorage.getItem("chat_sessions") || "{}");
+      sessions[currentSessionKey] = sessions[currentSessionKey] || [];
+      sessions[currentSessionKey].push({ role, text });
+      localStorage.setItem("chat_sessions", JSON.stringify(sessions));
+    }
 
-        // Allow Enter key to send message
-        document.getElementById("user-input").addEventListener("keypress", function(event) {
-            if (event.key === "Enter") {
-                sendMessage();
-            }
+    function renderSessions() {
+      const sessions = JSON.parse(localStorage.getItem("chat_sessions") || "{}");
+      const sessionList = document.getElementById("sessions");
+      sessionList.innerHTML = "";
+      Object.keys(sessions).forEach(key => {
+        const time = new Date(Number(key.split("_")[1]));
+        const label = isNaN(time.getTime()) ? "Unknown" : time.toLocaleString();
+        const div = document.createElement("div");
+        div.className = "session-item";
+        div.innerHTML = `
+          <span onclick="loadSession('${key}')">${label}</span>
+          <button onclick="deleteSession('${key}')">🗑</button>
+        `;
+        sessionList.appendChild(div);
+      });
+    }
+
+    function loadSession(key) {
+      const sessions = JSON.parse(localStorage.getItem("chat_sessions") || "{}");
+      currentSessionKey = key;
+      const messages = sessions[key] || [];
+      renderChat(messages);
+    }
+
+    function deleteSession(key) {
+      const sessions = JSON.parse(localStorage.getItem("chat_sessions") || "{}");
+      delete sessions[key];
+      localStorage.setItem("chat_sessions", JSON.stringify(sessions));
+      if (currentSessionKey === key) {
+        currentSessionKey = "";
+        document.getElementById("chatbox").innerHTML = "";
+      }
+      renderSessions();
+    }
+
+    function sendMessage() {
+      const input = document.getElementById("user-input");
+      const text = input.value.trim();
+      if (!text) return;
+
+      appendMessage("user", text);
+      saveMessage("user", text);
+      input.value = "";
+
+      const chatbox = document.getElementById("chatbox");
+      const typing = document.createElement("div");
+      typing.classList.add("message", "bot");
+      typing.id = "typing";
+      typing.innerHTML = `
+        <img src="static/mindbridge_logo.png" class="avatar" />
+        <div class="text"><b>MindBridgeAI:</b> <i>typing...</i></div>
+      `;
+      chatbox.appendChild(typing);
+      chatbox.scrollTop = chatbox.scrollHeight;
+
+      fetch("/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: text })
+      })
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById("typing").remove();
+          appendMessage("bot", data.reply);
+          saveMessage("bot", data.reply);
         });
-    </script>
+    }
 
+    document.getElementById("user-input").addEventListener("keypress", function (e) {
+      if (e.key === "Enter") sendMessage();
+    });
+
+    // Init
+    renderSessions();
+    startNewChat();
+  </script>
 </body>
 </html>
